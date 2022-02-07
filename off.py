@@ -10,7 +10,7 @@ LED_COUNT = config.N_PIXELS # Number of LED pixels.
 LED_PIN = config.LED_PIN  # GPIO pin connected to the pixels (18 uses PWM!).
 LED_FREQ_HZ = config.LED_FREQ_HZ   # LED signal frequency in hertz (usually 800khz)
 LED_DMA = config.LED_DMA  # DMA channel to use for generating signal (try 10)
-LED_BRIGHTNESS = config.BRIGHTNESS  # Set to 0 for darkest and 255 for brightest
+LED_BRIGHTNESS = 100 # config.BRIGHTNESS  # Set to 0 for darkest and 255 for brightest
 LED_INVERT = config.LED_INVERT  # True to invert the signal (when using NPN transistor level shift)
 
 # not in config
@@ -24,6 +24,7 @@ def color_wipe(strip, color, wait_ms=50):
         strip.setPixelColor(i, color)
         strip.show()
         time.sleep(wait_ms / 1000.0)
+    return
 
 
 # Main program logic follows:
@@ -37,7 +38,8 @@ if __name__ == '__main__':
     # Intialize the library (must be called once before other functions).
     strip.begin()
 
-#    color_wipe(strip, Color(255, 255, 255), 10)
- #   color_wipe(strip, Color(255, 20, 20), 30)
-    color_wipe(strip, Color(0, 0, 0), 10)
+    while True:
+        color_wipe(strip, Color(255, 255, 255), 10)
+        color_wipe(strip, Color(0, 0, 0), 10)
+        pass
 

@@ -131,7 +131,6 @@ def visualize_scroll(y):
     # Update the LED strip
     return np.concatenate((p[:, ::-1], p), axis=1)
 
-
 def visualize_energy(y):
     """Effect that expands from the center with increasing sound energy"""
     global p
@@ -139,7 +138,7 @@ def visualize_energy(y):
     gain.update(y)
     y /= gain.value
     # Scale by the width of the LED strip
-    y *= float((config.N_PIXELS // 2) - 1)
+    y *= 2.0 * float((config.N_PIXELS // 2) - 1)
     # Map color channels according to energy in the different freq bands
     scale = 0.9
     r = int(np.mean(y[:len(y) // 3] ** scale))
@@ -163,7 +162,6 @@ def visualize_energy(y):
 
 
 _prev_spectrum = np.tile(0.01, config.N_PIXELS // 2)
-
 
 def visualize_spectrum(y):
     """Effect that maps the Mel filterbank frequencies onto the LED strip"""

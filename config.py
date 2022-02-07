@@ -3,12 +3,14 @@ import os
 import sys
 import logging
 
+LOGFILE = "/var/log/lightstripd.log"
+
 logger = logging.getLogger("lightstrip")
 logger.setLevel(logging.INFO)
-handler = logging.StreamHandler(sys.stderr)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-handler.setFormatter(formatter)
-logger.addHandler(handler)
+#handler = logging.StreamHandler(sys.stderr)
+#handler.setFormatter(formatter)
+#logger.addHandler(handler)
 
 DEVICE = 'pi'
 
@@ -24,13 +26,8 @@ audio input and control the LED strip directly.
 to control the leds connected to it.
 """
 
-if DEVICE == 'esp8266':
-    UDP_IP = '192.168.0.150'
-    """IP address of the ESP8266. Must match IP in ws2812_controller.ino"""
-    UDP_PORT = 7777
-    """Port number used for socket communication between Python and ESP8266"""
-    SOFTWARE_GAMMA_CORRECTION = False
-    """Set to False because the firmware handles gamma correction + dither"""
+BUTTON_RED_PIN = 24
+BUTTON_GREEN_PIN = 23
 
 if DEVICE == 'pi':
     LED_PIN = 18

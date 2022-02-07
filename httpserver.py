@@ -1,6 +1,8 @@
+#!/usr/bin/python3
 
 from http.server import *
 import visualization
+import button
 
 hostName = ""
 serverPort = 80
@@ -9,6 +11,7 @@ template = '''
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
+<meta http-equiv="refresh" content="10;url=/" />
 <style>
 .button {
   background-color: #00bfff;
@@ -63,7 +66,8 @@ class LightStripServer(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
-        response = template % ":) Stas"
+        stats = ""
+        response = template % stats
         self.wfile.write(bytes(response, "utf-8"))
         return
 
@@ -72,18 +76,21 @@ class LightStripServer(BaseHTTPRequestHandler):
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+
+def runserver():
+    button.setup_buttons()
+    webServer = ThreadingHTTPServer((hostName, serverPort), LightStripServer)
+    webServer.serve_forever()
+    webServer.server_close()
+    return
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('stas')
+    runserver()
+    pass
 
-    webServer = ThreadingHTTPServer((hostName, serverPort), LightStripServer)
-    webServer.serve_forever()
-    webServer.server_close()
+
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
 
